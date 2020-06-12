@@ -10,8 +10,16 @@
 * ```python main.py```
 
 #### Task 1
-To create human readable list of events 
+To create human readable list of events
+<img src="1a.PNG">
+<img src="1b.PNG">
+
+
 #### Task 2
-To identify the events which are complete duplicates 
+To identify the events which are complete duplicates
+<img src="2.PNG">
+
 #### Task 3
-To identify events semantically similar
+To identify events which are semantically similar
+<img src="3.PNG">
+
