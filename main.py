@@ -1,5 +1,5 @@
 import requests
-
+import spacy
 #Api url
 url = 'https://o136z8hk40.execute-api.us-east-1.amazonaws.com/dev/get-list-of-conferences'
 data = {}
@@ -53,6 +53,33 @@ class Wrapper:
         for entry in duplicates:
             print(str(entry['confName']) + ', ' + entry['confStartDate'] + ', ' + str(entry['city']) + ', ' +str(entry['state']) + ', ' +  str(entry['country']) + ', ' + str(entry['entryType']) + ', ' +str(entry['confUrl'])  + '\n')
       
+    
+    #TASK 3: Identify semantic duplicates
+    def task3(self, data):
+        #Loading  model en_core_web_md
+        nlp = spacy.load("en_core_web_md")
+        redundant = []
+        for entry in range(len(data)-1):
+            entryFirst = nlp(data[entry][0])
+            temp = []
+            for j in range(entry + 1, len(data)):
+                entrySecond = nlp(data[j][0])
+                rank = entryFirst.similarity(entrySecond)
+                if rank > 0.90:
+                    temp.append(data[j])
+            #Checking if similarity found
+            if len(temp) > 0:
+                if data[entry] not in redundant:
+                    redundant.append(data[entry])
+                    for event in temp:
+                        if event not in redundant:
+                            redundant.append(event)
+                        else:
+                            pass
+                else:
+                    pass
+
+
 
 #Declaring instance of class Wrapper
 a = Wrapper()
